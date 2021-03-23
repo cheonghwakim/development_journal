@@ -233,3 +233,127 @@ unity VScode에서 작업하기 (VS말고)
 
 
 ![keystore 생성](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210319142628495.png)
+
+
+
+### 2021-03-22
+
+```
+Unity-Firebase 연동
+
+firebase에서 프로젝트(Unity, Android) google-services.json을 발급받은 뒤 
+Unity 프로젝트 -> asset 폴더 내에 갖다 놓기
+
+Streaming assets/firebase-services-desktop.json이 생성되면 인식 완료
+!! 하지만 unable to load google-services-desktop.json 등 파베가 로드 안 되는 문제가 발생했을 때
+```
+
+```
+* unable to load google-services-desktop.json 해결하기
+
+1. 현재 해결방법은 없이 unity 2019.3.15f버전으로 다운그레이드 하였다....?!
+	-> 우리는 2019.4인데,,,, ㅜ 일단 흐린눈,,
+	
+2. google-services.json 파일 때문이었는데, 파일 위치를 StreamingAssets로 옮겨주면 해결된다.
+	-> 해결 안 된다.^^
+	
+3. https://firebase.google.com/docs/unity/setup?hl=ko 역시 공식문서 참조하기 ㅎ..
+    .NET 4.x를 사용하는 경우 다음과 같은 방법으로 컴파일 오류를 해결하세요.
+
+    모든 플랫폼에서 다음 DLL을 삭제하거나 사용 중지합니다.
+    Parse/Plugins/Unity.Compat.dll
+    Parse/Plugins/Unity.Tasks.dll
+    모든 플랫폼에서 다음 DLL을 사용 설정합니다.
+    Parse/Plugins/dotNet45/Unity.Compat.dll
+    Parse/Plugins/dotNet45/Unity.Tasks.dll
+    
+    ....
+    
+4. 경로에 한글을 다 없앰 --> 정답...!! (경로에 한글은 앵간함 넣지 말자...)
+```
+
+
+
+### 2021-03-23
+
+```
+Android-Unity 연동위해 Android Studio plugin 작업 필요 
+
+- 참조
+https://xinyustudio.wordpress.com/2015/12/31/step-by-step-guide-for-developing-android-plugin-for-unity3d-i/
+
+```
+
+프론트 배포하는 방법 정리
+
+- EC2에 HTML 배포하기
+  https://www.notion.so/EC2-HTML-ee65722e4ed7484e88cc55b7cc6517f6
+
+1. EC2 접속(mobaXtreme 가능)
+
+   ```
+   $ ssh -i J4A401T.pem ubuntu@j4a401.p.ssafy.io
+   ```
+
+2. ec2에 nginx 설치하고 html 배포하기
+
+   ```
+   $ sudo apt-get update
+   $ sudo apt-get install nginx
+   ```
+
+3. git clone https://lab.ssafy.com/s04-ai-speech-sub3/s04p23a401.git 하고 index.html 위치 확인
+
+4. sites-available로 가서 default 파일을 수정한다.
+
+   ![https://user-images.githubusercontent.com/43662673/112101474-0a849000-8bea-11eb-8e5c-dba07af2414b.png](https://user-images.githubusercontent.com/43662673/112101474-0a849000-8bea-11eb-8e5c-dba07af2414b.png)
+
+   ```
+   $ cd ~
+   $ cd /etc/nginx/sites-available
+   $ sudo vi default
+   ```
+
+   4 - 1. default 파일 수정
+
+   ![https://user-images.githubusercontent.com/43662673/112101684-6b13cd00-8bea-11eb-8b13-b0c3ba33ad7a.png](https://user-images.githubusercontent.com/43662673/112101684-6b13cd00-8bea-11eb-8b13-b0c3ba33ad7a.png)
+
+   root /home/ubuntu/s04p22a401/Web/eriene; (index.html 이 있는 위치) 로 수정 후 nginx 시작
+
+   ```
+   $ systemctl start nginx
+   ```
+
+5. 주소로 들어가서 잘 나오는지 확인
+
+   ```
+   <http://j4a401.p.ssafy.io/>
+   ```
+
+
+
+- EC2에 HTML 업데이트하기
+
+  https://www.notion.so/EC2-HTML-b8e0513e699c402d96a0c3c99023d8c6
+
+  1. EC2 접속(mobaXtreme 가능)
+
+     ```
+     $ ssh -i J4A401T.pem ubuntu@j4a401.p.ssafy.io
+     ```
+
+  2. git directory로 이동
+
+  ![https://user-images.githubusercontent.com/43662673/112101929-d3fb4500-8bea-11eb-8c21-eac62ae23c7e.png](https://user-images.githubusercontent.com/43662673/112101929-d3fb4500-8bea-11eb-8c21-eac62ae23c7e.png)
+
+  ```
+  $ cd s04p23a401
+  $ git pull
+  $ sudo service nginx restart
+  ```
+
+  3. 주소로 들어가서 잘 나오는지 확인
+
+  ```
+  http://j4a401.p.ssafy.io/
+  ```
