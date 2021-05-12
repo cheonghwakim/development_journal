@@ -1,0 +1,1 @@
+scp -i "T02A404.pem" -r ./dist ubuntu@도메인:/home/ubuntu/front/
