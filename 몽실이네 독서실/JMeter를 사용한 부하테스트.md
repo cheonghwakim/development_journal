@@ -16,11 +16,11 @@
 cmd -> 압축 푼 폴더 아래 bin 폴더로 이동 -> jmeter 입력 후 엔터
 ```
 
-![image-20210525234430577](C:\Users\0901B\AppData\Roaming\Typora\typora-user-images\image-20210525234430577.png)
+![image](https://user-images.githubusercontent.com/43662673/119540707-b3a55d80-bdc8-11eb-96b2-9079da0c1dd6.png)
 
 그럼 아래와 같은 GUI가 나온다. CLI는 아래 테스트 방법에서 언급할 예정
 
-![image-20210525234522977](C:\Users\0901B\AppData\Roaming\Typora\typora-user-images\image-20210525234522977.png)
+![image](https://user-images.githubusercontent.com/43662673/119540753-c15ae300-bdc8-11eb-8f42-b01ff9875535.png)
 
 
 
